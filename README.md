@@ -1,3 +1,62 @@
+# `gitea-upload-artifact`
+
+This is a fork of actions/upload-artifact@v7 modified specifically for Gitea.
+
+By default, the original action uses a process-of-elimination check (`isGhes()`). 
+Because Gitea runs on custom domains, the original action mistakes Gitea for a GitHub Enterprise Server (GHES) and aborts due to missing GHES-specific APIs.
+This fork fixes that detection.
+
+By default, the original action mistakes Gitea for a GitHub Enterprise Server (GHES) and aborts.
+
+## Usage
+
+```yaml
+- name: "Upload Build Artifacts (Full Configuration)"
+  id: upload-step  # Set an ID to access outputs in later steps
+  # instead of "uses: actions/upload-artifact@v7", use:
+  uses: tkuschel/gitea-upload-artifact@v7
+  with:
+    # 1. Name of the artifact (Optional, Default: 'artifact')
+    name: my-super-artifact
+
+    # 2. Paths to the files (Required)
+    # Supports individual files, directories, wildcards, and exclusions (!)
+    path: |
+      dist/
+      src/**/*.js
+      !src/**/*.test.js
+
+    # 3. Behavior when no matching files are found
+    # Options: 'warn' (default), 'error' (fails the CI job), 'ignore'
+    if-no-files-found: error
+
+    # 4. Retention period in days (Optional)
+    # Allowed: 1 to 90 days (0 uses the repository default)
+    retention-days: 14
+
+    # 5. Compression level (Optional, Default: 6)
+    # 0 = None (fast for huge binary files), 9 = Maximum (saves storage space)
+    compression-level: 6
+
+    # 6. NEW in v7: Upload as raw files instead of a ZIP (Optional, Default: true)
+    # When set to 'false', files can be viewed directly in the GitHub browser interface!
+    archive: false
+
+    # 7. Overwrite behavior for identical names (Optional, Default: false)
+    # When 'true', an existing artifact with the same name will be deleted before uploading.
+    overwrite: true
+
+    # 8. Include hidden files (e.g., .env or .gitignore)
+    # Options: 'true' (default) or 'false'
+    include-hidden-files: true
+```
+> [!IMPORTANT]
+> Ensure your `gitea_runner` (formerly `act_runner`) is configured to use Gitea's public URL, or the generated artifact links will fail.
+
+## Credits
+
+Special thanks to [ChristopherHX](https://github.com/ChristopherHX) for the invaluable preliminary work and inspiration regarding `act` and artifact hosting.
+
 # `@actions/upload-artifact`
 
 > [!WARNING]
