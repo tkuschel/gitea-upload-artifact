@@ -1,12 +1,10 @@
 # `gitea-upload-artifact`
 
-This is a fork of actions/upload-artifact@v7 modified specifically for Gitea.
+This is a fork of actions/upload-artifact@v7 modified specifically for Gitea and Forgejo.
 
-By default, the original action uses a process-of-elimination check (`isGhes()`). 
-Because Gitea runs on custom domains, the original action mistakes Gitea for a GitHub Enterprise Server (GHES) and aborts due to missing GHES-specific APIs.
+By default, the original action uses a process-of-elimination check (`isGhes()`).
+Because Gitea / Forgejo runs on custom domains, the original action mistakes Gitea / Forgejo for a GitHub Enterprise Server (GHES) and aborts due to missing GHES-specific APIs.
 This fork fixes that detection.
-
-By default, the original action mistakes Gitea for a GitHub Enterprise Server (GHES) and aborts.
 
 ## Usage
 
