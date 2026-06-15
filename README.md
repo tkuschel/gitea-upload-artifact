@@ -6,7 +6,11 @@ By default, the original action uses a process-of-elimination check (`isGhes()`)
 Because Gitea / Forgejo runs on custom domains, the original action mistakes Gitea / Forgejo for a GitHub Enterprise Server (GHES) and aborts due to missing GHES-specific APIs.
 This fork fixes that detection.
 
-This fork should also work since v4 version using: `tkuschel/gitea-upload-artifacts@v4`
+Additionally, this fork works also fine with older versions since v4, using:
+ * `tkuschel/gitea-upload-artifact@v4`
+ * `tkuschel/gitea-upload-artifact@v5`
+ * `tkuschel/gitea-upload-artifact@v6`
+ * `tkuschel/gitea-upload-artifact@v7`
 
 ## Usage of version v7
 
